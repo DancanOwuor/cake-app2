@@ -6,13 +6,13 @@ import connectdb from "@/app/lib/database";
 import nodemailer from 'nodemailer';
 
 export const POST = async(request:Request) => {
-    const ticket = Math.floor(1000 + Math.random() * 9000);
+    //const ticket = Math.floor(1000 + Math.random() * 9000);
     const {cart, Itemtotal, Email, Name} = await request.json(); // we are getting the email from the body so that we can send an email to the user who checkedout
     const location = "Nairobi, Kenya";
     const deviceName = "Chrome on Windows";
     const timestamp = "July 8, 2025 at 6:22 PM EAT";
 
-    let HtmlBody = `
+    const HtmlBody = `
         <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; width: 100%; max-width: 600px; background-color: #f9f9f9; border: 1px solid #e0e0e0;">
         <tr>
             <td style="padding: 20px;">
