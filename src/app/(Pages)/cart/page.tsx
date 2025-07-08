@@ -26,7 +26,7 @@ const Page = () => {
 
 useEffect(()=>{
      fetchCart();
-  });
+  },[]);
   
 useEffect(()=>{
         //calculating total of cart items
