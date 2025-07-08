@@ -53,7 +53,7 @@ export const POST = async(request: Request)=>{
   quantity
 });
         if(username){
-            const createdCart = Cart.create({ userId:new mongoose.Types.ObjectId(userId), cakeId:new mongoose.Types.ObjectId(cakeId), username, name, price, imageUrl, quantity:typeof quantity === "number" ? quantity : 1});
+            const createdCart = await Cart.create({ userId:new mongoose.Types.ObjectId(userId), cakeId:new mongoose.Types.ObjectId(cakeId), username, name, price, imageUrl, quantity:typeof quantity === "number" ? quantity : 1});
             console.log(createdCart)
             if(!createdCart){
                 return NextResponse.json({error: "Could not create cart"})

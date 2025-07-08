@@ -27,7 +27,7 @@ const Page = () => {
     
     useEffect(()=>{
          fetchCart();
-      });
+      }, []);
 
 const handleCheckout = async ()=>{
       const storedUser = localStorage.getItem("Userdata");
