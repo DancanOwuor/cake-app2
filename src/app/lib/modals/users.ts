@@ -4,6 +4,7 @@ import { Schema, model, models } from "mongoose";
 
 const userSchema = new Schema(
     {
+        "_id":{type:String, required:true, unique: true},
         "username": {type:String, required:true, unique: true},
         "role": {
             type: String, 
