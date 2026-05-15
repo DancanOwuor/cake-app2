@@ -1,33 +1,30 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI is not defined. Check your .env.local file.");
+  console.warn("MONGODB_URI is missing");
 }
 
-const connectdb = async ()=>{
-     const connectionState = mongoose.connection.readyState;
 
-     if(connectionState === 1){
-        console.log("Already Connected")
-     }
-     if(connectionState === 2){
-        console.log("Connecting")
-     }
+let cached = global.mongoose as any;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
 
-     try{
-        await mongoose.connect(MONGODB_URI, {
-            dbName: "CakeShop",
-            bufferCommands:true
-        })
-        console.log("Connected")
-     } catch(error:unknown){
-          if (error instanceof Error) {
-             console.log("Error connecting to Database", error);
-            throw new Error("Error:", error)
-          }    
-     }
+const connectdb = async () => {
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not defined");
+  }
+
+  if (cached.conn) return cached.conn;
+
+  cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
+    dbName: "CakeShop",
+  });
+
+  cached.conn = await cached.promise;
+  return cached.conn;
 };
 
 export default connectdb;
