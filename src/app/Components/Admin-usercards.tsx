@@ -32,7 +32,7 @@ const AdminUsercards = ({search, onDelete}: AdminUserCardProps) => {
   return (
     <div className='flex flex-col gap-4 w-screen mt-26 px-5'>
           <h1 className='text-center text-3xl font-bold'>Registered Accounts</h1>
-          <div className='md:flex flex flex-col gap-5'>
+          <div className='md:flex flex flex-row gap-5'>
               {filteredUsers.map((user:User, index:number) => ( <div key={index} className=' bg-blue-950 shadow-2xl text-white p-3 rounded-2xl flex flex-col gap-2 justify-center text-center'>
             <p className='text-center text-3xl font-extrabold'>{user.username}</p>
             <p className='text-center font-bold'>Role: {user.role}</p>

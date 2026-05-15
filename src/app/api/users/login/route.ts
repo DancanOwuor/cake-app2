@@ -30,6 +30,7 @@ export const POST = async (request: Request) =>{
                 { message:'Login successful', 
                   token,
                   user: { 
+                        _id:user._id,
                         email: user.email, 
                         username: user.username, 
                         role: user.role 

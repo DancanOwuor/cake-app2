@@ -25,7 +25,7 @@ const Navbar = () => {
         </div>
         <div className=''>
             <nav>
-            <ul className='flex gap-6 font-bold text-black text-[18px]'>
+            <ul className='flex gap-6 font-bold text-black text-[18px] font-bold'>
                 <Link className='hover:text-white transition-all duration-200 md:flex items-center justify-baseline gap-1 hidden' href='/home'><BiHome size={20}/>Home</Link>
                 <Link className='hover:text-white transition-all duration-200 md:flex items-center justify-baseline gap-1 hidden' href="/About"><FcAbout size={20}/>About</Link>
                 <Link className='hover:text-white transition-all duration-200 md:flex items-center justify-baseline gap-1 hidden' href='/Categories'><BiCategory size={20}/>Categories</Link>
